@@ -13,7 +13,7 @@ export class User extends Document {
     public password: string;
     
     @Prop({ type: String, required: true })
-    public phone: String;
+    public phone: string;
 
     @Prop({ type: String, required: true })
     public role: string;

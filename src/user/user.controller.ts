@@ -3,10 +3,10 @@ import { UserRepository } from './../database/repositories/user.repository';
 
 @Controller()
 export class UserController {
-    constructor(private readonly databaseRepository: UserRepository) {}
+    constructor(private readonly userRepository: UserRepository) {}
 
     public create() {
-        const user = this.databaseRepository.GetUserModel.create();
+        const user = this.userRepository.GetUserModel.create();
         return user;
     }
 }
