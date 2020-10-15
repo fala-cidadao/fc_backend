@@ -22,9 +22,14 @@ export const modelsProviderAsync: AsyncModelFactory[] = [
         collection: 'users',
         useFactory: () => {
             const schema = UserSchema;
-            schema.pre<User>('save', async () => {
+            schema.pre<User>('save', async function(next) {
                 const salt: string = await bcrypt.genSalt(5);
-                this.password = await bcrypt.hash(this.password, salt);
+                
+                const hash = await bcrypt.hash(this.password, salt);
+                
+                this.password = hash;
+                
+                next();
             });
             return schema;
         }
