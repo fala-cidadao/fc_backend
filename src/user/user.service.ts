@@ -36,5 +36,17 @@ export class UserService {
         };
 
         return user;
+    };
+
+    public async getUserByEmail(email: string): Promise<User> {
+        const user = await this.userRepository.GetUserModel.find({ email });
+
+        if (user.length === 0) {
+            Logger.error('Usuário não encontrado', 'UserService');
+
+            throw new NotFoundException('Usuário não encontrado');
+        };
+
+        return user[0];
     }
 };
