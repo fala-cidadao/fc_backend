@@ -4,7 +4,7 @@ import { AppConfigModule } from './../config/app-config.module';
 import { AppConfigService } from './../config/app-config.service';
 import { UserRepository } from './repositories/user.repository';
 import { ProblemRepository } from './repositories/problem.repository';
-import { modelsProvider, modelsProviderAsync } from './models.provider';
+import { modelsProviderAsync } from './models.provider';
 
 @Module({
     imports: [
@@ -18,7 +18,6 @@ import { modelsProvider, modelsProviderAsync } from './models.provider';
             }),
             inject: [AppConfigService]
         }),
-        MongooseModule.forFeature(modelsProvider),
         MongooseModule.forFeatureAsync(modelsProviderAsync),
     ],
     providers: [UserRepository, ProblemRepository],

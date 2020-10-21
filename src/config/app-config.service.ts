@@ -8,4 +8,12 @@ export class AppConfigService {
     public get databaseUrl(): string {
         return this.configService.get<string>('DATABASE_URL');
     };
+
+    public get secret(): string {
+        return this.configService.get<string>('SECRET');
+    };
+
+    public get expiresIn(): string {
+        return this.configService.get<string>('SIGNOPTIONS');
+    };
 };
