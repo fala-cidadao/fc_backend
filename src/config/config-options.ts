@@ -1,6 +1,7 @@
 import { join } from "path"
 
-const config = 'development.env';
+const config = process.env.NODE_ENV ? "production.env": 'development.env';
+
 const configPath = join(process.cwd(), '/src/environments', config);
 
 export const configOptions = {
