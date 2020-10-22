@@ -37,8 +37,10 @@ export class AuthService {
                 token,
                 user: {
                     userId: userDoc._id,
+                    name: userDoc.name,
                     email: userDoc.email,
-                    role: userDoc.role
+                    phone: userDoc.phone,
+                    role: userDoc.role,
                 }
             };
 

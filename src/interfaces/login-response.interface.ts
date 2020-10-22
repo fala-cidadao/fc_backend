@@ -3,7 +3,9 @@ export interface LoginResponse {
     token: string;
     user: {
         userId: string;
+        name: string;
         email: string;
+        phone: string;
         role: string;
     };
 };
