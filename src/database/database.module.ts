@@ -10,8 +10,8 @@ import { modelsProviderAsync } from './models.provider';
     imports: [
         MongooseModule.forRootAsync({
             imports: [AppConfigModule],
-            useFactory: (appConfigService: AppConfigService) => ({
-                uri: appConfigService.databaseUrl,
+            useFactory: () => ({
+                uri: process.env.DATABASE_URL ? process.env.DATABASE_URL : "mongodb://localhost:27017/falacidadao",
                 useNewUrlParser: true,
                 useFindAndModify: false,
                 useUnifiedTopology: true
