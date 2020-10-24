@@ -7,4 +7,7 @@ export interface Problem extends Document {
     image: string;
     location: Location;
     comments: Comment[];
+    title: string;
+    description: string;
+    status: string;
 }
