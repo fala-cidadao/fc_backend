@@ -1,6 +1,7 @@
 import { Controller, Post, Res, Body, Logger, HttpStatus, Get, Param, Put } from '@nestjs/common';
 import { ProblemService } from './problem.service';
 import { Problem } from '../database/schemas/problem.schema';
+import { Comment } from '../database/schemas/comment.schema';
 
 @Controller('problem')
 export class ProblemController {
@@ -47,15 +48,24 @@ export class ProblemController {
         return res.status(HttpStatus.OK).json(problem);
     }
 
-    /** Atualiza o status do problema, desde que seja um administrador
-    
     @Put(':id')
-    public async update(@Res() res, @Param('id') id: string): Promise<Problem> {
+    public async update(@Res() res, @Param('id') id: string, @Body() problem: Problem): Promise<Problem> {
         Logger.log('Atualizando problema', 'ProblemController');
 
-        const problem = await this.problemService.updateProblem(id);
+        const problemUpdated = await this.problemService.updateProblem(id, problem);
 
-        return res.status(HttpStatus.OK).json(problem);
+        return res.status(HttpStatus.OK).json(problemUpdated);
     }
-    */
+
+    @Post(':id/comment')
+    public async comment(@Res() res, @Param('id') id: string, @Body() comment: Comment): Promise<Problem> {
+        const problem = await this.problemService.comment(id, comment);
+
+        res.status(HttpStatus.OK).json(problem);
+
+        Logger.log("Problema atualizado - Method: comment", "problemController");
+
+        return problem;
+    }
+
 }

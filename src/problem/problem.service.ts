@@ -1,6 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ProblemRepository } from '../database/repositories/problem.repository';
 import { Problem } from '../database/schemas/problem.schema';
+import { Comment } from '../database/schemas/comment.schema';
 
 @Injectable()
 export class ProblemService {
@@ -38,13 +39,23 @@ export class ProblemService {
         return problem;
     }
 
-    /**
-    public async updateProblem(id: string): Promise<Problem> {
+    public async updateProblem(id: string, problem: Problem): Promise<Problem> {
+        const problemSearch = await this.getProblem(id);
+
+        await this.problemRepository.GetProblemModel.updateOne({ id: id }, problemSearch);
+
+        return problemSearch;
+    }
+
+    public async comment(id: string, comment: Comment): Promise<Problem> {
         const problem = await this.getProblem(id);
 
-        ...
+        Logger.log("Adicionando novo comentário ao problema", "problemService");
+
+        problem.comments.push(comment);
+
+        await this.problemRepository.GetProblemModel.updateOne({ id: id }, problem);
 
         return problem;
     }
-    */
 }
