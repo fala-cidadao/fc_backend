@@ -62,14 +62,21 @@ describe('UserService', () => {
         });
         
     });
+    
 
-        
     describe('getAllUsers must return an array', () => {
         it('getAllUsers must return an array"',async () => {
             const users = await service.getAllUsers()
             expect(users).toBeInstanceOf(Array);
         });
     });
+    describe('getUserByEmail must return a user by its email',() => {
+        it('getUserByEmail mus return a user by its email',async () => {
+            const user = await service.getUserByEmail("gabriel.nobrega0110@ggg.com")
+            expect(user).toMatchObject({name: 'Gabriel', email: "gabriel.nobrega0110@ggg.com", role: "admin", phone: "99999999"})
+        });
+    });
+    
 
     afterAll( async () => {
         const users = usersToBeDeleted.map(userId => {
