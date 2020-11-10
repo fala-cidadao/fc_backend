@@ -56,6 +56,14 @@ export class UserService {
     }
 
     public async deleteUser(id: string): Promise<unknown>{
+        const user = await this.userRepository.GetUserModel.findById(id);
+
+        if (!user) {
+            Logger.error('Usuário não encontrado', 'UserService');
+
+            throw new NotFoundException('Usuário não encontrado');
+        };
+
         return this.userRepository.GetUserModel.deleteOne({_id: id})
     }
 };
