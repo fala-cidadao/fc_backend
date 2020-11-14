@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, HttpStatus, Res, Req, Logger, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, HttpStatus, Res, Logger, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../database/schemas/user.schema';
 
