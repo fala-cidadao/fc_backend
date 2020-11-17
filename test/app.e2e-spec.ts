@@ -16,15 +16,14 @@ describe('AppController (e2e)', () => {
     });
 
     describe('payment accepted', () => {
-        it('/order/pay/:id (PUT)', async () => {
-          const result = await request(app.getHttpServer())
-            .get('/users')
-            .expect(400).then((result) => {
-                console.log(result)
-            })
-          return result
+        it('/', async () => {
+          request(app.getHttpServer())
+            .get('/')
+            .expect(200)
         });
     
     });
 
+
+    afterEach(() => app.close())
 })

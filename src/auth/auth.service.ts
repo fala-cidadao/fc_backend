@@ -6,7 +6,7 @@ import { compare } from 'bcrypt';
 import { UserService } from './../user/user.service';
 import { LoginDto } from './../interfaces/login-dto.interface';
 import { LoginResponse }  from '../interfaces/login-response.interface';
-import { AppConfigService } from 'src/config/app-config.service';
+import { AppConfigService } from '../config/app-config.service';
 
 @Injectable()
 export class AuthService {
