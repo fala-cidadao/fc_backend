@@ -1,15 +1,20 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UserRepository } from '../database/repositories/user.repository';
 import { User } from '../database/schemas/user.schema';
+import { UserDto } from '../interfaces/user.interface'
 
 @Injectable()
 export class UserService {
     constructor(private readonly userRepository: UserRepository) {}
 
-    public async createUser(user: User): Promise<User> {
+    public async createUser(user: UserDto): Promise<User> {
         const newUser = new this.userRepository.GetUserModel(user);
+        try{
+            return await newUser.save();
+        } catch(e) {
+            throw new BadRequestException("User email already exists")
+        }
 
-        return await newUser.save();
     };
 
     public async getAllUsers(): Promise<User[]> {
@@ -18,7 +23,7 @@ export class UserService {
         if (!users || users.length === 0) {
             Logger.warn('Nenhum usuário cadastrado', 'UserService');
 
-            throw new NotFoundException('Nenhum usuário cadastrado');
+            return users;
         } else {
             Logger.log('Listagem bem-sucedida', 'UserController');
         }
@@ -48,5 +53,17 @@ export class UserService {
         };
 
         return user[0];
+    }
+
+    public async deleteUser(id: string): Promise<unknown>{
+        const user = await this.userRepository.GetUserModel.findById(id);
+
+        if (!user) {
+            Logger.error('Usuário não encontrado', 'UserService');
+
+            throw new NotFoundException('Usuário não encontrado');
+        };
+
+        return this.userRepository.GetUserModel.deleteOne({_id: id})
     }
 };
