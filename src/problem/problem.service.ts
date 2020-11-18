@@ -40,11 +40,11 @@ export class ProblemService {
     }
 
     public async updateProblem(id: string, problem: Problem): Promise<Problem> {
-        const problemSearch = await this.getProblem(id);
+        const currentProblem = await this.getProblem(id);
 
-        await this.problemRepository.GetProblemModel.updateOne({ id: id }, problemSearch);
+        const updatedProblem = Object.assign(currentProblem, problem)
 
-        return problemSearch;
+        return await updatedProblem.save();
     }
 
     public async comment(id: string, comment: Comment): Promise<Problem> {
@@ -53,9 +53,7 @@ export class ProblemService {
         Logger.log("Adicionando novo comentário ao problema", "problemService");
 
         problem.comments.push(comment);
-
-        await this.problemRepository.GetProblemModel.updateOne({ id: id }, problem);
-
-        return problem;
+        
+        return await problem.save();
     }
 }
