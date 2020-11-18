@@ -3,4 +3,4 @@ export interface Comment {
     text: string;
     role: string;
     image: string;
-}
+} 
