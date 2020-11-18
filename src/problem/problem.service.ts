@@ -19,7 +19,7 @@ export class ProblemService {
         if (!problems || problems.length === 0) {
             Logger.warn('Nenhum problema cadastrado', 'ProblemService');
 
-            throw new NotFoundException('Nenhum problema cadastrado');
+            return problems
         } else {
             Logger.log('Listagem bem-sucedida', 'ProblemController');
         }
