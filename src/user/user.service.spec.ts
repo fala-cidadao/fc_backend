@@ -59,6 +59,23 @@ describe('UserService', () => {
             expect(user).toMatchObject({name: 'Gabriel', email: "gabriel.nobrega6@ggg.com", role: "admin", phone: "99999999"})
         });
     });
+   
+    describe('deleteUser should delete a user by its id', () => {
+        it('DeleteUser should delete a user by its id"',async () => {
+            const user = await service.createUser({
+                name: "Mateus",
+                email: "mateusantonino@gmail.com",
+                password: "senha",
+                role: "admin",
+                phone: "99999999",
+            })
+            await service.deleteUser(user._id);
+            expect(service.getUser(user._id)).rejects.toThrow('Usuário não encontrado');
+        });
+        
+    });
+    
+
     
     afterAll( async () => {
         const users = usersToBeDeleted.map(userId => {
