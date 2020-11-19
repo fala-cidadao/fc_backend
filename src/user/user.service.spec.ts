@@ -17,7 +17,10 @@ describe('UserService', () => {
     it('should be defined', () => {
         expect(service).toBeDefined();
     });
-
+    /* teste 1 Unitario
+     *   testa se o usuario é cadastrado corretamente e se o usuario 
+     *    cadastrado é correspondende ao esperado, tudo ocorre como esperado
+     */     
     describe('Create Users', () => {
         it('user should be created',async () => {
             const user = await service.createUser({
@@ -32,7 +35,10 @@ describe('UserService', () => {
         });
         
     });
-
+    /* Teste 2 Unitario
+    Testa se ao tentar cadastrar um email ja cadastrado,ocorre uma execção
+    ocorre tudo como esperado
+    */
     describe('Should raise user already exists', () => {
         it('user should not be created',async () => {
             await expect(service.createUser({
@@ -45,26 +51,35 @@ describe('UserService', () => {
         });
         
     });
-
+    /* Teste 3 Unitario
+     *   Testa se o getAllUsers retorna um array corretamente
+     *     ocorre tudo como o esperado
+     */ 
     describe('getAllUsers must return an array', () => {
         it('getAllUsers must return an array"',async () => {
             const users = await service.getAllUsers()
             expect(users).toBeInstanceOf(Array);
         });
     });
-
+    /** teste 4 Unitario
+     * testa se o getUserbyEmail procura pelo o email do usuario corretamente
+     * ocorre tudo como o esperado
+     */
     describe('getUserByEmail must return a user by its email',() => {
         it('getUserByEmail mus return a user by its email',async () => {
             const user = await service.getUserByEmail("gabriel.nobrega6@ggg.com")
             expect(user).toMatchObject({name: 'Gabriel', email: "gabriel.nobrega6@ggg.com", role: "admin", phone: "99999999"})
         });
     });
-   
+   /** teste 5 Unitario
+    * testa se o deleteUser deleta o usuario a partir do id corretamente
+    * tudo corre como o esperado
+    */
     describe('deleteUser should delete a user by its id', () => {
         it('DeleteUser should delete a user by its id"',async () => {
             const user = await service.createUser({
                 name: "Mateus",
-                email: "mateusantonino@gmail.com",
+                email: "mateusdiniz09@gmail.com",
                 password: "senha",
                 role: "admin",
                 phone: "99999999",
@@ -74,9 +89,6 @@ describe('UserService', () => {
         });
         
     });
-    
-
-    
     afterAll( async () => {
         const users = usersToBeDeleted.map(userId => {
             service.deleteUser(userId)
