@@ -25,5 +25,24 @@ export class AuthController {
 
             return error;
         }
+    }
+
+    @Post('forgot')
+    public async forgotPassword(@Body() body: {email: string}, @Res() res): Promise<LoginResponse> {
+        try {
+            Logger.log('Solicitando recuperação de senha', 'AuthController');
+
+            await this.authService.recoverPassword(body);
+
+            Logger.log('Email enviado', 'AuthController');
+
+            return res.status(HttpStatus.OK).send();
+        } catch (error) {
+            Logger.error(error);
+
+            res.status(HttpStatus.UNAUTHORIZED);
+
+            return error;
+        }
     };
-};
+}
