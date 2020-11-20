@@ -20,13 +20,7 @@ export class UserService {
     public async getAllUsers(): Promise<User[]> {
         const users = await this.userRepository.GetUserModel.find();
 
-        if (!users || users.length === 0) {
-            Logger.warn('Nenhum usuário cadastrado', 'UserService');
-
-            return users;
-        } else {
-            Logger.log('Listagem bem-sucedida', 'UserController');
-        }
+        Logger.log('Listagem bem-sucedida', 'UserController');
 
         return users;
     };
