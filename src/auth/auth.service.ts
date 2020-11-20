@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, Logger, BadRequestException, Body, Res } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Logger, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { verify } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
