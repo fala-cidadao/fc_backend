@@ -10,7 +10,7 @@ export class Problem extends Document {
     public owner: Types.ObjectId;
 
     @Prop({ type: String, required: true })
-    public image: string;
+    public images: string[];
 
     @Prop({ type: String, required: true })
     public title: string;
@@ -26,6 +26,9 @@ export class Problem extends Document {
 
     @Prop({ type: [CommentSchema], default: [] })
     public comments: Comment[];
+
+    @Prop({ type: String, required: true })
+    public category: string;
 };
 
 export const ProblemSchemaProvide = Symbol('ProblemSchemaProvide').toString();
