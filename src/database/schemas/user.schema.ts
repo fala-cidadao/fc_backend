@@ -8,6 +8,9 @@ export class User extends Document {
     @Prop({ type: String, required: true })
     public name: string;
 
+    @Prop({ type: String, default: ['https://i.ibb.co/3pjwPFP/icon.jpg'] })
+    public image: string;
+
     @Prop({ type: String, unique: true, required: true })
     public email: string;
 
