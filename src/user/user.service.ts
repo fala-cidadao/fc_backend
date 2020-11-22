@@ -49,6 +49,14 @@ export class UserService {
         return user[0];
     }
 
+    public async updateUser(id: string, user: User): Promise<User> {
+        const currentUser = await this.getUser(id);
+
+        const updatedUser = Object.assign(currentUser, user)
+
+        return await updatedUser.save();
+    }
+
     public async deleteUser(id: string): Promise<unknown>{
         const user = await this.userRepository.GetUserModel.findById(id);
 
