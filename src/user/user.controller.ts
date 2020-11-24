@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, HttpStatus, Res, Logger, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, HttpStatus, Res, Logger, Param, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../database/schemas/user.schema';
 
@@ -45,6 +45,15 @@ export class UserController {
         const user = await this.userService.getUser(id);
 
         return res.status(HttpStatus.OK).json(user);
+    }
+
+    @Put(':id')
+    async update(@Res() res, @Param('id') id: string, @Body() user: User): Promise<User> {
+        Logger.log('Atualizando usuário', 'UserController');
+
+        const userUpdated = await this.userService.updateUser(id, user);
+
+        return res.status(HttpStatus.OK).json(userUpdated);
     }
 
     @Delete(':id')
