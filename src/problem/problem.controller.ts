@@ -39,6 +39,15 @@ export class ProblemController {
         }
     }
 
+    @Get('filters/:filter')
+    public async getProblemsByFilter(@Res() res, @Param('filter') filter: string): Promise<Problem> {
+        Logger.log('Buscando problemas por filtro', 'ProblemController');
+        
+        const problems = await this.problemService.getProblemsByFilter(filter);
+
+        return res.status(HttpStatus.OK).json(problems);
+    }
+
     @Get(':id')
     public async getProblem(@Res() res, @Param('id') id: string): Promise<Problem> {
         Logger.log('Buscando problema por id', 'ProblemController');

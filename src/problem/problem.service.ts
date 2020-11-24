@@ -16,13 +16,43 @@ export class ProblemService {
     public async getAllProblems(): Promise<Problem[]> {
         const problems = await this.problemRepository.GetProblemModel.find();
 
-        if (!problems || problems.length === 0) {
-            Logger.warn('Nenhum problema cadastrado', 'ProblemService');
+        Logger.log('Listagem bem-sucedida', 'ProblemController');
 
-            return problems
+        return problems;
+    }
+
+    public async getProblemsByFilter(filter: string): Promise<Problem[]> {
+        if (filter === "category"){
+            const problems = await this.getProblemsByCategory(filter);
+
+            Logger.log('Listando por categoria', 'ProblemController');
+
+            return problems;
+        } else if (filter === "status"){
+            const problems = await this.getProblemsByStatus(filter);
+
+            Logger.log('Listando por status', 'ProblemController');
+
+            return problems;
         } else {
-            Logger.log('Listagem bem-sucedida', 'ProblemController');
+            Logger.error('Filtro não encontrado', 'ProblemService');
+
+            throw new NotFoundException('Filtro não encontrado');
         }
+    }
+
+    public async getProblemsByStatus(status: string): Promise<Problem[]> {
+        const problems = await this.problemRepository.GetProblemModel.find({ status: status });
+
+        Logger.log('Listagem bem-sucedida', 'ProblemController');
+
+        return problems;
+    }
+
+    public async getProblemsByCategory(category: string): Promise<Problem[]> {
+        const problems = await this.problemRepository.GetProblemModel.find({ category: category });
+
+        Logger.log('Listagem bem-sucedida', 'ProblemController');
 
         return problems;
     }
