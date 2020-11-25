@@ -4,7 +4,8 @@ import { Comment } from './comment.interface';
 
 export interface Problem extends Document {
     owner: string;
-    images: string[];
+    userImages: string[];
+    adminImages: string[];
     location: Location;
     comments: Comment[];
     description: string;
