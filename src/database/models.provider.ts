@@ -10,6 +10,8 @@ export const modelsProviderAsync: AsyncModelFactory[] = [
         useFactory: () => {
             const schema = UserSchema;
             schema.pre<User>('save', async function(next) {
+                if (!this.isModified('password')) next();
+                
                 const salt: string = await bcrypt.genSalt(5);
                 const hash = await bcrypt.hash(this.password, salt);
                 this.password = hash;
