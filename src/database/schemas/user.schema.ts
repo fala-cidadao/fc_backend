@@ -13,6 +13,9 @@ export class User extends Document {
 
     @Prop({ type: String, required: true })
     public password: string;
+
+    @Prop({ type: String, default: 'https://i.ibb.co/3pjwPFP/icon.jpg' })
+    public image: string;
     
     @Prop({ type: String, required: true })
     public phone: string;

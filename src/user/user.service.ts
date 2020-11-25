@@ -12,7 +12,7 @@ export class UserService {
         try{
             return await newUser.save();
         } catch(e) {
-            throw new BadRequestException("User email already exists")
+            throw new BadRequestException("User email already exists");
         }
 
     };
@@ -20,13 +20,7 @@ export class UserService {
     public async getAllUsers(): Promise<User[]> {
         const users = await this.userRepository.GetUserModel.find();
 
-        if (!users || users.length === 0) {
-            Logger.warn('Nenhum usuário cadastrado', 'UserService');
-
-            return users;
-        } else {
-            Logger.log('Listagem bem-sucedida', 'UserController');
-        }
+        Logger.log('Listagem bem-sucedida', 'UserController');
 
         return users;
     };
@@ -53,6 +47,14 @@ export class UserService {
         };
 
         return user[0];
+    }
+
+    public async updateUser(id: string, user: User): Promise<User> {
+        const currentUser = await this.getUser(id);
+
+        const updatedUser = Object.assign(currentUser, user)
+
+        return await updatedUser.save();
     }
 
     public async deleteUser(id: string): Promise<unknown>{
