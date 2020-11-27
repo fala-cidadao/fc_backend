@@ -10,7 +10,7 @@ export class EmailService {
         await this.mailerService.sendMail({
                 to: email,
                 subject: 'Password recovery',
-                text: `Here is the link: ${token}`
+                text: `https://es-fc-frontend.netlify.app/recover-password/${token}`
         })
 
         Logger.log("Email successfully sent")
