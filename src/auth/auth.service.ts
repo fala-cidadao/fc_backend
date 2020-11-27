@@ -30,7 +30,7 @@ export class AuthService {
             if(!user)  throw new BadRequestException('User not found');
             const token = this.jwtService.sign({email}, {expiresIn: 1800})
 
-            await this.emailService.sendMail(email, `Go to this link to change your password ${token} this token expires in 30 minutes`)
+            await this.emailService.sendMail(email, token)
 
             return;
 
